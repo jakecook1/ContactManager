@@ -11,6 +11,7 @@ using ContactManagerWeb.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using AutoMapper;
+using ContactManagerWeb.Services;
 
 namespace ContactManagerWeb
 {
@@ -72,6 +73,10 @@ namespace ContactManagerWeb
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUnitOfWork<DataContext>, UnitOfWork<DataContext>>();
+            services.AddScoped<IService<Contact>, ContactsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
