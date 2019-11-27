@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using ContactManagerWeb.Data;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +10,7 @@ using ContactManagerWeb.Models;
 using ContactManagerWeb.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using AutoMapper;
 
 namespace ContactManagerWeb
 {
@@ -66,6 +61,9 @@ namespace ContactManagerWeb
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            var mappingProfile = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+            services.AddSingleton(mappingProfile.CreateMapper());
 
             // Make authentication mandatory for all controllers need to specify if the controller
             // allows Anon access with [AllowAnonymous]

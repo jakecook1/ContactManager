@@ -8,6 +8,8 @@ namespace ContactManagerWeb.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
 
+        public DbSet<Contact> Contacts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
