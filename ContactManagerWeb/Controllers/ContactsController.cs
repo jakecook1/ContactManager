@@ -50,6 +50,76 @@ namespace ContactManagerWeb.Controllers
             return View(viewModels);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View(new ContactViewModel() { Active = true });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ContactViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = _mapper.Map<Contact>(viewModel);
+                await _contactsService.AddAsync(entity);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var entity = _contactsService.Get(id.Value);
+            var viewModel = _mapper.Map<ContactViewModel>(entity);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ContactViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = _mapper.Map<Contact>(viewModel);
+
+                _contactsService.Update(entity);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var entity = _contactsService.Get(id.Value);
+
+            if (entity == null)
+                return NotFound();
+
+            return View(_mapper.Map<ContactViewModel>(entity));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _contactsService.Delete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
         #endregion
     }
 }

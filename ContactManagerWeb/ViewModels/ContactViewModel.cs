@@ -9,12 +9,14 @@ namespace ContactManagerWeb.ViewModels
     {
         public int ContactId { get; set; }
 
+        [Required(ErrorMessage = "First name is required.")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Display(Name = "Int.")]
         public string MiddleInitial { get; set; }
 
+        [Required(ErrorMessage = "Last name is required.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
