@@ -18,6 +18,11 @@
     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
 </div>
 <div class="form-group">
+    @Html.LabelFor(model => model.Email)
+    @Html.TextBoxFor(model => model.Email, new { @class = "form-control mb-2" })
+    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
     @Html.LabelFor(model => model.HomePhone)
     @Html.TextBoxFor(model => model.HomePhone, new { @class = "form-control mb-2" })
     @Html.ValidationMessageFor(model => model.HomePhone, "", new { @class = "text-danger" })

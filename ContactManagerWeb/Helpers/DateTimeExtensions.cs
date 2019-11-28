@@ -6,7 +6,7 @@ namespace ContactManagerWeb.Helpers
 {
     public static class DateTimeExtensions
     {
-        private const string DefaultZone = "New Zealand Standard Time";
+        private const string DefaultZone = "Pacific/Auckland";
 
         public static DateTime UtcToTimeZoneTime(this DateTime time, string timeZoneId = DefaultZone)
         {
@@ -96,8 +96,7 @@ namespace ContactManagerWeb.Helpers
 
         private static TimeZoneInfo GetTimeZoneId(string timeZoneId)
         {
-            var timezones = TimeZoneInfo.GetSystemTimeZones();
-            return timezones.FirstOrDefault(x => x.StandardName == timeZoneId);
+            return TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
         }
     }
 }

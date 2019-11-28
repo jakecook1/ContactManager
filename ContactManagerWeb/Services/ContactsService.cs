@@ -129,6 +129,9 @@ namespace ContactManagerWeb.Services
 
             if (contact.LastName != entity.LastName)
                 contact.LastName = entity.LastName;
+
+            if (contact.Email != entity.Email)
+                contact.Email = entity.Email;
             
             if (contact.HomePhone != entity.HomePhone)
                 contact.HomePhone = entity.HomePhone;
@@ -152,7 +155,7 @@ namespace ContactManagerWeb.Services
             Expression<Func<Contact, bool>> predicate = null;
 
             if (!string.IsNullOrEmpty(search))
-                predicate = source => source.FirstName.ToLower().Contains(search.ToLower());
+                predicate = source => (source.FirstName.ToLower() + " " + source.LastName.ToLower()).Contains(search.ToLower());
 
             return predicate;
         }

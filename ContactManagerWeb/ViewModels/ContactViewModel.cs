@@ -20,6 +20,10 @@ namespace ContactManagerWeb.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Email is required.")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Display(Name = "Home")]
         public string HomePhone { get; set; }
 

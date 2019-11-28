@@ -37,11 +37,7 @@ namespace ContactManagerWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string sort, string searchString, int? pageNumber)
         {
-            ViewData["CurrentSort"] = sort;
-            ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sort) ? "FirstName_desc" : "";
-            ViewData["LastNameSortParam"] = sort == "LastName" ? "LastName_desc" : "LastName";
-
-            ViewData["CurrentFilter"] = searchString;
+            GetViewData(sort, searchString);
 
             var result = await _contactsService.GetAllAsync(sort, searchString, pageNumber ?? 0);
 
@@ -118,6 +114,24 @@ namespace ContactManagerWeb.Controllers
         {
             _contactsService.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void GetViewData(string sort, string searchString)
+        {
+            ViewData["CurrentSort"] = sort;
+            ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sort) ? "FirstName_desc" : "";
+            ViewData["LastNameSortParam"] = sort == "LastName" ? "LastName_desc" : "LastName";
+            ViewData["HomePhoneSortParam"] = sort == "HomePhone" ? "HomePhone_desc" : "HomePhone";
+            ViewData["CellPhoneSortParam"] = sort == "CellPhone" ? "CellPhone_desc" : "CellPhone";
+            ViewData["OfficeExtensionSortParam"] = sort == "OfficeExtension" ? "OfficeExtension_desc" : "OfficeExtension";
+            ViewData["IrdNumberSortParam"] = sort == "IrdNumber" ? "IrdNumber_desc" : "IrdNumber";
+            ViewData["ActiveSortParam"] = sort == "Active" ? "Active_desc" : "Active";
+
+            ViewData["CurrentFilter"] = searchString;
         }
 
         #endregion
