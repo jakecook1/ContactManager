@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using ContactManagerWeb.Models;
 
 namespace ContactManagerWeb.ViewModels
@@ -6,20 +9,38 @@ namespace ContactManagerWeb.ViewModels
     {
         public int ContactId { get; set; }
 
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [Display(Name = "Int.")]
         public string MiddleInitial { get; set; }
 
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Home")]
         public string HomePhone { get; set; }
 
+        [Display(Name = "Mobile")]
         public string CellPhone { get; set; }
 
+        [Display(Name = "Ext.")]
         public string OfficeExtension { get; set; }
 
+        [Display(Name = "Ird No.")]
         public string IrdNumber { get; set; }
 
+        [Display(Name = "Active")]
         public bool Active { get; set; }
+
+        public List<ContactImage> ContactImages { get; set; }
+
+        public ContactImage DefaultImage
+        {
+            get
+            {
+                return ContactImages != null ? ContactImages.FirstOrDefault() : null;
+            }
+        }
     }
 }
