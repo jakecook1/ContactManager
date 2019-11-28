@@ -1,4 +1,4 @@
-using System;
+using ContactManagerWeb.Models;
 
 namespace ContactManagerWeb.ViewModels
 {

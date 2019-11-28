@@ -1,0 +1,13 @@
+@model string
+
+<form asp-action="Index" method="get">
+    <div class="d-flex form-actions no-color mb-3">
+        <div class="flex-grow-1">
+            <input type="text" name="searchString" value="@Model" class="form-control" />
+        </div>
+        <div class="ml-1">
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-action="Index">Clear Search</a>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,31 @@
+@model IEnumerable<ContactManagerWeb.ViewModels.ContactViewModel>
+
+<table class="table table-sm table-hover">
+    <thead class="thead-dark">
+        <tr class="row">
+            <th class="col-md-7">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th class="d-none d-md-block col-4">
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th class="d-none d-md-block col-1"></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr class="row cursor-pointer"
+                onclick="location.href = '@(Url.Action("Edit", "Contacts", new { id = @item.ContactId }))'">
+            <td class="col-md-7 text-break">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td class="d-none d-md-block col-md-4 text-break">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td class="col-md-1">
+                @Html.ActionLink("Delete", "Delete", "Contacts", new { id = @item.ContactId })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

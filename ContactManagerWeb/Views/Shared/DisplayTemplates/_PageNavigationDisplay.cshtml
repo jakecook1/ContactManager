@@ -1,0 +1,39 @@
+@model PageNavigation
+
+@{
+    var prevDisabled = !Model.HasPrevious ? "disabled" : "";
+    var nextDisabled = !Model.HasNext ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item @prevDisabled">
+            <a asp-action="Index"
+                asp-route-pageNumber="@(Model.Index - 1)"
+                class="page-link"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        @for(int i = 1; i <= @Model.Pages; i++)
+        {
+            var pagerClasses = Model.Index == i - 1 ? "page-item active" : "page-item";
+
+            <li class="@pagerClasses">
+                <a asp-action="Index"
+                    asp-route-pageNumber="@(i - 1)"
+                    class="page-link">@i</a>
+            </li>
+        }
+        
+        <li class="page-item @nextDisabled">
+            <a asp-action="Index"
+                asp-route-pageNumber="@(Model.Index + 1)"
+                class="page-link"
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

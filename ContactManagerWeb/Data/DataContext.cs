@@ -10,6 +10,8 @@ namespace ContactManagerWeb.Data
 
         public DbSet<Contact> Contacts { get; set; }
 
+        public DbSet<ContactImage> ContactImages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

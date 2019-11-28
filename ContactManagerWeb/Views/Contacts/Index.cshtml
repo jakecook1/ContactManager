@@ -1,5 +1,26 @@
+@model Paginate<ContactManagerWeb.ViewModels.ContactViewModel>
 @{ ViewData["Title"] = "Contacts"; }
 
 <div>
     <h1 class="display-4">@ViewData["Title"]</h1>
+
+    <p><a asp-action="Create" class="btn btn-primary">Create</a></p>
+
+    @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
+    
+    <div class="container">
+        @await Html.PartialAsync("../Shared/DisplayTemplates/_ContactsTable", @Model.Items)
+    </div>
+
+    @{
+        var pageNavigation = new PageNavigation
+        {
+            Index = Model.Index,
+            Pages = Model.Pages,
+            HasPrevious = Model.HasPrevious,
+            HasNext = Model.HasNext
+        };
+    }
+
+    @await Html.PartialAsync("../Shared/DisplayTemplates/_PageNavigationDisplay", pageNavigation)
 </div>
