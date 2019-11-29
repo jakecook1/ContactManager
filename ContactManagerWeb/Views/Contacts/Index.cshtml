@@ -1,10 +1,22 @@
 @model Paginate<ContactManagerWeb.ViewModels.ContactViewModel>
-@{ ViewData["Title"] = "Contacts"; }
+@{
+    ViewData["Title"] = "Contacts";
+    var activeOnly = @ViewData["ShowActive"] != null ? @ViewData["ShowActive"] : 1;
+}
 
 <div>
     <h1 class="display-4">@ViewData["Title"]</h1>
 
-    <p><a asp-action="Create" class="btn btn-primary">Create</a></p>
+    <div class="d-flex pb-3">
+        <div class="flex-grow-1">
+            <a asp-action="Create" class="btn btn-primary mr-3">Create</a>
+            <input id="showContacts" type="checkbox" />
+            <label for="showContacts">Active only</label>
+        </div>
+        <div>
+            <a asp-action="Export" class="btn btn-primary">Export</a>
+        </div>
+    </div>
 
     @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
     

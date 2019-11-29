@@ -7,6 +7,7 @@ using ContactManagerWeb.Data;
 using ContactManagerWeb.Data.Paging;
 using ContactManagerWeb.Helpers;
 using ContactManagerWeb.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
@@ -22,7 +23,9 @@ namespace ContactManagerWeb.Services
 
         private readonly UserManager<User> _userManager;
 
-        public readonly IMemoryCache _cache;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private string UserName => _httpContextAccessor.HttpContext.User.Identity.Name;
 
         #endregion
 
@@ -30,11 +33,11 @@ namespace ContactManagerWeb.Services
 
         public ContactsService(IUnitOfWork<DataContext> uow,
                                UserManager<User> userManager,
-                               IMemoryCache cache)
+                               IHttpContextAccessor httpContextAccessor)
         {
             _uow = uow;
             _userManager = userManager;
-            _cache = cache;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IEnumerable<Contact> GetAll(string userId = null)
@@ -64,8 +67,12 @@ namespace ContactManagerWeb.Services
 
         public async Task<IPaginate<Contact>> GetAllAsync(string sort, string search, int pageNumber)
         {
+            var user = await _userManager.FindByNameAsync(UserName);
+
             var entities = await _uow.GetRepositoryAsync<Contact>()
-                                     .GetListAsync(predicate: GetFilter(search),
+                                     .GetListAsync(//predicate: GetFilter(search),
+                                                   predicate: FilterByUserId(user.Id),
+                                                   include: Includes(),
                                                    orderBy: ListExtensions.GetOrderBy<Contact>(sort, "FirstName"),
                                                    index: pageNumber,
                                                    size: 50);
@@ -89,6 +96,11 @@ namespace ContactManagerWeb.Services
 
         public async Task AddAsync(Contact entity)
         {
+            var user = await _userManager.FindByNameAsync(UserName);
+
+            if (user != null)
+                entity.User = user;
+
             await _uow.GetRepositoryAsync<Contact>().AddAsync(entity);
             _uow.SaveChanges();
         }
@@ -152,7 +164,6 @@ namespace ContactManagerWeb.Services
                 contact.Active = entity.Active;
         }
 
-
         private static Expression<Func<Contact, bool>> GetFilter(string search)
         {
             Expression<Func<Contact, bool>> predicate = null;
@@ -168,6 +179,11 @@ namespace ContactManagerWeb.Services
         private Expression<Func<Contact, bool>> FilterByUserId(string userId)
         {
             return source => source.User.Id == userId;
+        }
+
+        private Func<IQueryable<Contact>, IIncludableQueryable<Contact, object>> Includes()
+        {
+            return source => source.Include(x => x.User);
         }
 
         private static Func<IQueryable<Contact>, IOrderedQueryable<Contact>> OrderBy()
