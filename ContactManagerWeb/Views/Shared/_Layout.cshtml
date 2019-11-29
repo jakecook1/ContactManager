@@ -31,6 +31,22 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+
+            <div id="modal-container" class="modal fade hidden-print" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content"></div>
+                </div>
+            </div>
+
+            <div id="image-modal-container" class="modal fade hidden-print text-center" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg d-inline-flex">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img id="showImage" src="" alt="Image" class="mw-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

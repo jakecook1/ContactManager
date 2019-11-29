@@ -4,8 +4,6 @@
     <thead class="thead-dark">
         <tr class="row">
             <th class="col-md-1">
-            </th>
-            <th class="col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["FirstNameSortParam"]"
                     class="text-white">
@@ -26,35 +24,21 @@
                     @Html.DisplayNameFor(model => model.LastName)
                 </a>
             </th>
-            <th class="col-md-1">
+            <th class="col-md-3">
                 <a asp-action="Index"
-                    asp-route-sort="@ViewData["HomePhoneSortParam"]"
+                    asp-route-sort="@ViewData["EmailSortParam"]"
                     class="text-white">
-                    @Html.DisplayNameFor(model => model.HomePhone)
+                    @Html.DisplayNameFor(model => model.Email)
                 </a>
             </th>
-            <th class="col-md-1">
+            <th class="col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["CellPhoneSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.CellPhone)
                 </a>
             </th>
-            <th class="col-md-1">
-                <a asp-action="Index"
-                    asp-route-sort="@ViewData["OfficeExtensionSortParam"]"
-                    class="text-white">
-                    @Html.DisplayNameFor(model => model.OfficeExtension)
-                </a>
-            </th>
-            <th class="col-md-1">
-                <a asp-action="Index"
-                    asp-route-sort="@ViewData["IrdNumberSortParam"]"
-                    class="text-white">
-                    @Html.DisplayNameFor(model => model.IrdNumber)
-                </a>
-            </th>
-            <th class="col-md-1">
+            <th class="col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["ActiveSortParam"]"
                     class="text-white">
@@ -66,19 +50,8 @@
     </thead>
     <tbody>
     @foreach (var item in Model) {
-        <tr class="row cursor-pointer"
-                onclick="location.href = '@(Url.Action("Edit", "Contacts", new { id = @item.ContactId }))'">
-            <td class="col-md-1">
-                @if (item.DefaultImage != null)
-                {
-                    <img src="@item.DefaultImage.ThumbnailUrl"
-                        alt="@item.DefaultImage.PublicId"
-                        class="img-fluid img-thumbnail"
-                        data-toggle="modal"
-                        data-target="#image-modal-container" />
-                }
-            </td>
-            <td class="col-md-2 text-truncate">
+        <tr class="row">
+            <td class="col-md-1 text-truncate">
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td class="col-md-1 text-truncate">
@@ -87,22 +60,26 @@
             <td class="col-md-2 text-truncate">
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td class="col-md-1 text-truncate">
-                @Html.DisplayFor(modelItem => item.HomePhone)
+            <td class="col-md-3 text-truncate">
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td class="col-md-1 text-truncate">
+            <td class="col-md-2 text-truncate">
                 @Html.DisplayFor(modelItem => item.CellPhone)
-            </td>
-            <td class="col-md-1 text-truncate">
-                @Html.DisplayFor(modelItem => item.OfficeExtension)
-            </td>
-            <td class="col-md-1 text-truncate">
-                @Html.DisplayFor(modelItem => item.IrdNumber)
             </td>
             <td class="col-md-1 text-truncate">
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
-            <td class="col-md-1">
+            <td class="col-md-2">
+                <a asp-controller="Contacts"
+                   asp-action="ViewInfo"
+                   asp-route-id="@item.ContactId"
+                   data-target="#modal-container"
+                   data-toggle="modal">
+                    View
+                </a>
+                <span>|</span>
+                @Html.ActionLink("Edit", "Edit", "Contacts", new { id = @item.ContactId })
+                <span>|</span>
                 @Html.ActionLink("Delete", "Delete", "Contacts", new { id = @item.ContactId })
             </td>
         </tr>

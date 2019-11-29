@@ -116,6 +116,17 @@ namespace ContactManagerWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult ViewInfo(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var entity = _contactsService.Get(id.Value);
+            var viewModel = _mapper.Map<ContactViewModel>(entity);
+
+            return PartialView("~/Views/Shared/Modals/_ContactModal.cshtml", viewModel);
+        }
+
         #endregion
 
         #region Private Methods

@@ -13,6 +13,7 @@ namespace ContactManagerWeb.ViewModels
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
+        [StringLength(1, ErrorMessage = "Initial can only be 1 character long.")]
         [Display(Name = "Int.")]
         public string MiddleInitial { get; set; }
 
@@ -21,6 +22,7 @@ namespace ContactManagerWeb.ViewModels
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -33,7 +35,7 @@ namespace ContactManagerWeb.ViewModels
         [Display(Name = "Ext.")]
         public string OfficeExtension { get; set; }
 
-        [Display(Name = "Ird No.")]
+        [Display(Name = "IRD No.")]
         public string IrdNumber { get; set; }
 
         [Display(Name = "Active")]
