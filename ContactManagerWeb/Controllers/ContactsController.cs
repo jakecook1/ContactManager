@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactManagerWeb.Data.Paging;
@@ -59,7 +60,11 @@ namespace ContactManagerWeb.Controllers
             if (ModelState.IsValid)
             {
                 var entity = _mapper.Map<Contact>(viewModel);
+
+                AddImage(viewModel, entity);
+
                 await _contactsService.AddAsync(entity);
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -85,6 +90,8 @@ namespace ContactManagerWeb.Controllers
             if (ModelState.IsValid)
             {
                 var entity = _mapper.Map<Contact>(viewModel);
+
+                AddImage(viewModel, entity);
 
                 _contactsService.Update(entity);
 
@@ -143,6 +150,22 @@ namespace ContactManagerWeb.Controllers
             ViewData["ActiveSortParam"] = sort == "Active" ? "Active_desc" : "Active";
 
             ViewData["CurrentFilter"] = searchString;
+        }
+
+        private static void AddImage(ContactViewModel viewModel, Contact entity)
+        {
+            var deletedImage = viewModel.DeletedImage;
+
+            if (deletedImage)
+                entity.ImagePublicId  = null;
+
+            var uploadDetails = viewModel.UploadDetails;
+
+            if (!string.IsNullOrEmpty(uploadDetails))
+            {
+                var details = Regex.Split(uploadDetails, @"#\$%");
+                entity.ImagePublicId = $"v{details[1]}/{details[0]}";
+            }
         }
 
         #endregion

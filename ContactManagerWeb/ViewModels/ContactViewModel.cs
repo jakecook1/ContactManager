@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using ContactManagerWeb.Constants;
 using ContactManagerWeb.Models;
 
 namespace ContactManagerWeb.ViewModels
@@ -43,12 +43,18 @@ namespace ContactManagerWeb.ViewModels
 
         public List<ContactImage> ContactImages { get; set; }
 
-        public ContactImage DefaultImage
-        {
-            get
+        public string ImagePublicId { get; set; }
+
+        public string ThumbnailUrl
+        { 
+            get 
             {
-                return ContactImages != null ? ContactImages.FirstOrDefault() : null;
+                return $"{StringConstants.ImageBaseThumbnailUrl}/{ImagePublicId}";
             }
         }
+
+        public string UploadDetails { get; set; }
+
+        public bool DeletedImage { get; set; }
     }
 }

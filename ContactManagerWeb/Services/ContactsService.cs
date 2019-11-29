@@ -145,6 +145,9 @@ namespace ContactManagerWeb.Services
             if (contact.IrdNumber != entity.IrdNumber)
                 contact.IrdNumber = entity.IrdNumber;
 
+            if (contact.ImagePublicId != entity.ImagePublicId)
+                contact.ImagePublicId = entity.ImagePublicId;
+
             if (contact.Active != entity.Active)
                 contact.Active = entity.Active;
         }

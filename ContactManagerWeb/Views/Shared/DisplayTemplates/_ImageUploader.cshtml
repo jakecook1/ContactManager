@@ -1,0 +1,21 @@
+<div class="form-group">
+    <input type="file"
+            id="fileUploader"
+            accept="image/*"
+            style="display:none"
+            onchange="handleFile(this.files)">
+    </input>
+    <div class="d-flex align-items-center">
+        <div class="mr-3">
+            <input id="uploadFile" type="button" value="Upload File" class="btn btn-primary" />
+        </div>
+        <div class="flex-grow-1">
+            <div class="d-none progress">
+                <div id="progress" class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    style="width: 0%">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,27 @@
 @model ContactManagerWeb.ViewModels.ContactViewModel
 
 @Html.HiddenFor(model => model.ContactId)
+@Html.HiddenFor(model => model.UploadDetails)
+@Html.HiddenFor(model => model.DeletedImage)
+
+<div id="gallery" class="d-inline-flex flex-wrap mb-3">
+    @if (Model.ImagePublicId != null) {
+        <div class="img-wrapper p-1">
+            <img src="@Model.ThumbnailUrl" alt="@Model.ThumbnailUrl" class="img-fluid img-thumbnail" />
+            <div class="img-overlay">
+                <a href="#" class="deleteImage" data-publicId="@Model.ThumbnailUrl">
+                    <i class="far fa-trash-alt" data-publicId="@Model.ThumbnailUrl"></i>
+                </a>
+            </div>
+        </div>
+    } else {
+        <div class="img-wrapper p-1">
+            <img src="/images/profile_placeholder.png" alt="Add Profile Image" class="img-fluid img-thumbnail" />
+        </div>
+    }
+</div>
+
+@await Html.PartialAsync("../Shared/DisplayTemplates/_ImageUploader")
 
 <div class="form-group">
     @Html.LabelFor(model => model.FirstName)

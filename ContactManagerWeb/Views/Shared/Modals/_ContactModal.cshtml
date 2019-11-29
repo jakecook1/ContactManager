@@ -1,6 +1,11 @@
 @model ContactManagerWeb.ViewModels.ContactViewModel
 
-@{ var title = "Contact"; }
+@{ 
+    var title = "Contact"; 
+    var imageSource = string.IsNullOrEmpty(Model.ImagePublicId)
+                        ? "/images/profile_placeholder.png"
+                        : Model.ThumbnailUrl;
+}
 
 <div id="target">
     <div class="modal-header">
@@ -10,6 +15,11 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="row pb-3">
+            <div class="col">
+                <img src="@imageSource" alt="Profile" class="img-fluid img-thumbnail">
+            </div>
+        </div>
         <div class="row pb-3">
             <div class="col-4 font-weight-bold">@Html.DisplayNameFor(model => model.FirstName)</div>
             <div class="col-8">@Html.DisplayFor(model => model.FirstName)</div>

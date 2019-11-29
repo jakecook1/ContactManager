@@ -24,6 +24,8 @@ namespace ContactManagerWeb.Models
 
         public string IrdNumber { get; set; }
 
+        public string ImagePublicId { get; set; }
+
         public bool Active { get; set; }
 
         public DateTime CreatedAt { get; set; }

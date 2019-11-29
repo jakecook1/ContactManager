@@ -34,6 +34,16 @@ body {
   margin-bottom: 60px;
 }
 
+.img-wrapper {
+  position: relative;
+}
+
+.img-overlay {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
