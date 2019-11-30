@@ -1,38 +1,38 @@
 @model IEnumerable<ContactManagerWeb.ViewModels.ContactViewModel>
 
-<table class="table table-sm table-hover">
+<table class="table table-striped table-hover">
     <thead class="thead-dark">
         <tr class="row">
-            <th class="col-md-1"></th>
-            <th class="col-md-3">
+            <th class="d-none d-md-block col-md-1"></th>
+            <th class="d-none d-md-block col-md-3">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["FirstNameSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.FullName)
                 </a>
             </th>
-            <th class="col-md-3">
+            <th class="d-none d-md-block col-md-3">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["EmailSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.Email)
                 </a>
             </th>
-            <th class="col-md-2">
+            <th class="d-none d-md-block col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["CellPhoneSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.CellPhone)
                 </a>
             </th>
-            <th class="col-md-2">
+            <th class="d-none d-md-block col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["ActiveSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.Active)
                 </a>
             </th>
-            <th class="col-md-1"></th>
+            <th class="d-none d-md-block col-md-1"></th>
         </tr>
     </thead>
     <tbody>
