@@ -3,18 +3,11 @@
 <table class="table table-sm table-hover">
     <thead class="thead-dark">
         <tr class="row">
-            <th class="col-md-1">
+            <th class="col-md-2">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["FirstNameSortParam"]"
                     class="text-white">
                     @Html.DisplayNameFor(model => model.FirstName)
-                </a>
-            </th>
-            <th class="col-md-1">
-                <a asp-action="Index"
-                    asp-route-sort="@ViewData["MiddleInitialSortParam"]"
-                    class="text-white">
-                    @Html.DisplayNameFor(model => model.MiddleInitial)
                 </a>
             </th>
             <th class="col-md-2">
@@ -51,28 +44,23 @@
     <tbody>
     @foreach (var item in Model) {
         <tr class="row cursor-pointer"
-            onclick="location.href = '@(Url.Action("Edit", "Contacts", new { id = @item.ContactId }))'">
-            <td class="col-md-1 text-truncate">
+            onclick="location.href = '@(Url.Action("Details", "Contacts", new { id = @item.ContactId }))'">
+            <td class="col-md-2 text-break">
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
-            <td class="col-md-1 text-truncate">
-                @Html.DisplayFor(modelItem => item.MiddleInitial)
-            </td>
-            <td class="col-md-2 text-truncate">
+            <td class="col-md-2 text-break">
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td class="col-md-3 text-truncate">
+            <td class="col-md-3 text-break">
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td class="col-md-2 text-truncate">
+            <td class="col-md-2 text-break">
                 @Html.DisplayFor(modelItem => item.CellPhone)
             </td>
-            <td class="col-md-1 text-truncate">
+            <td class="col-md-1 text-break">
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td class="col-md-2">
-                @Html.ActionLink("View", "Details", "Contacts", new { id = @item.ContactId })
-                <span>|</span>
                 @Html.ActionLink("Edit", "Edit", "Contacts", new { id = @item.ContactId })
                 <span>|</span>
                 @Html.ActionLink("Delete", "Delete", "Contacts", new { id = @item.ContactId })
