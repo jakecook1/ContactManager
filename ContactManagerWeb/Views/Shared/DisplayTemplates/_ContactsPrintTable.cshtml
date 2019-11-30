@@ -1,0 +1,14 @@
+@model IEnumerable<ContactManagerWeb.ViewModels.ContactViewModel>
+
+@foreach (var item in Model) {
+    <div class="d-flex flex-wrap">
+        <p class="mr-3"><strong>Name:</strong> @Html.DisplayFor(modelItem => item.FullName)</p>
+        <p class="mr-3"><strong>Email:</strong> @Html.DisplayFor(modelItem => item.Email)</p>
+        <p class="mr-3"><strong>Home:</strong> @Html.DisplayFor(modelItem => item.HomePhone)</p>
+        <p class="mr-3"><strong>Mobile:</strong> @Html.DisplayFor(modelItem => item.CellPhone)</p>
+        <p class="mr-3"><strong>Office Extension:</strong> @Html.DisplayFor(modelItem => item.OfficeExtension)</p>
+        <p class="mr-3"><strong>IRD Number:</strong> @Html.DisplayFor(modelItem => item.IrdNumber)</p>
+        <p class="mr-3"><strong>Active:</strong> @(item.Active ? "Yes" : "No")</p>
+    </div>
+    <hr />
+}

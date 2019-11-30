@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -169,6 +170,19 @@ namespace ContactManagerWeb.Controllers
 
             var streamFile = new FileBuilder(FileType.Csv).GetFile<Contact>(entities);
             return File(streamFile.Contents, streamFile.ContentType, streamFile.Name);
+        }
+
+        [HttpGet]
+        public IActionResult Print()
+        {
+            // Get all contacts for logged in user
+            var entities = _contactsService.GetAll();
+
+            // Map to view model
+            var viewModels = _mapper.Map<List<ContactViewModel>>(entities);
+
+            // Return create contact view
+            return View(viewModels);
         }
 
         #endregion

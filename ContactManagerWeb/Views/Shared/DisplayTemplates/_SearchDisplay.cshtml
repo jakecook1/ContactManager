@@ -3,10 +3,10 @@
 <form asp-action="Index" method="get">
     <div class="d-flex form-actions no-color mb-3">
         <div class="flex-fill">
-            <input type="text" name="searchString" value="@Model" class="form-control" />
+            <input type="text" name="searchString" value="@Model" placeholder="Search..." class="form-control" />
         </div>
         <div class="ml-1">
-            <input type="submit" value="Search" class="btn btn-primary" />
+            <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Search"><i class="fas fa-search"></i></button>
         </div>
     </div>
 </form>

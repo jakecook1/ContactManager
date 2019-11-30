@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoMapper;
 using ContactManagerWeb.Data.Paging;
 using ContactManagerWeb.Models;

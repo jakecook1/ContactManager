@@ -1,0 +1,14 @@
+@model IEnumerable<ContactManagerWeb.ViewModels.ContactViewModel>
+@{ ViewData["Title"] = "Print"; }
+
+<div class="d-print-none">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<hr />
+
+<p class="d-print-none"><a asp-action="Index">Back</a></p>
+
+<div class="container">
+    @await Html.PartialAsync("../Shared/DisplayTemplates/_ContactsPrintTable", @Model)
+</div>
