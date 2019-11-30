@@ -6,18 +6,17 @@
 }
 
 <div>
-    <h1 class="display-4">@ViewData["Title"]</h1>
-
-    @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
-
-    <div class="d-flex pb-3">
+    <div class="d-flex align-items-center pb-3">
         <div class="flex-grow-1">
-            <a asp-action="Create" class="@(canCreate == true ? "btn btn-primary mr-3" : "btn btn-primary mr-3 disabled")">Create</a>
+            <h1 class="display-4">@ViewData["Title"]</h1>
         </div>
         <div>
+            <a asp-action="Create" class="@(canCreate == true ? "btn btn-primary mr-1" : "btn btn-primary mr-1 disabled")">Create</a>
             <a asp-action="Export" class="btn btn-primary">Export</a>
         </div>
     </div>
+
+    @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
     
     <div class="container">
         @await Html.PartialAsync("../Shared/DisplayTemplates/_ContactsTable", @Model.Items)
