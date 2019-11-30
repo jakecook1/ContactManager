@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace ContactManagerWeb.Services
 {
@@ -65,7 +64,7 @@ namespace ContactManagerWeb.Services
                                                    include: Includes(),
                                                    orderBy: ListExtensions.GetOrderBy<Contact>(sort, "FirstName"),
                                                    index: pageNumber,
-                                                   size: 50);
+                                                   size: 10);
 
             var cols = new string[] {"UpdatedAt"};
             entities.Items.UtcToLocalDates<Contact>(cols);
@@ -115,6 +114,18 @@ namespace ContactManagerWeb.Services
         {
             _uow.GetRepository<Contact>().Delete(id);
             _uow.SaveChanges();
+        }
+
+        public int GetActiveCount()
+        {
+            var user = _userManager.FindByNameAsync(UserName).Result;
+
+            var entities = _uow.GetRepository<Contact>()
+                               .GetAll(predicate: FilterActiveByUserId(user.Id),
+                                   include: Includes())
+                           .ToList();
+
+            return entities.Count();
         }
 
         #endregion
@@ -176,6 +187,11 @@ namespace ContactManagerWeb.Services
         private Expression<Func<Contact, bool>> FilterByUserId(string userId)
         {
             return source => source.User.Id == userId;
+        }
+
+        private Expression<Func<Contact, bool>> FilterActiveByUserId(string userId)
+        {
+            return source => source.Active & source.User.Id == userId;
         }
 
         private Func<IQueryable<Contact>, IIncludableQueryable<Contact, object>> Includes()

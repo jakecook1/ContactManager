@@ -50,7 +50,8 @@
     </thead>
     <tbody>
     @foreach (var item in Model) {
-        <tr class="row">
+        <tr class="row cursor-pointer"
+            onclick="location.href = '@(Url.Action("Edit", "Contacts", new { id = @item.ContactId }))'">
             <td class="col-md-1 text-truncate">
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -70,13 +71,7 @@
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td class="col-md-2">
-                <a asp-controller="Contacts"
-                   asp-action="ViewInfo"
-                   asp-route-id="@item.ContactId"
-                   data-target="#modal-container"
-                   data-toggle="modal">
-                    View
-                </a>
+                @Html.ActionLink("View", "Details", "Contacts", new { id = @item.ContactId })
                 <span>|</span>
                 @Html.ActionLink("Edit", "Edit", "Contacts", new { id = @item.ContactId })
                 <span>|</span>

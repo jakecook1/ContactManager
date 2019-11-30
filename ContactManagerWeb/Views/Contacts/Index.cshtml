@@ -2,23 +2,22 @@
 @{
     ViewData["Title"] = "Contacts";
     var activeOnly = @ViewData["ShowActive"] != null ? @ViewData["ShowActive"] : 1;
+    var canCreate = ViewBag.CanCreate != null ? ViewBag.CanCreate : false;
 }
 
 <div>
     <h1 class="display-4">@ViewData["Title"]</h1>
 
+    @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
+
     <div class="d-flex pb-3">
         <div class="flex-grow-1">
-            <a asp-action="Create" class="btn btn-primary mr-3">Create</a>
-            <input id="showContacts" type="checkbox" />
-            <label for="showContacts">Active only</label>
+            <a asp-action="Create" class="@(canCreate == true ? "btn btn-primary mr-3" : "btn btn-primary mr-3 disabled")">Create</a>
         </div>
         <div>
             <a asp-action="Export" class="btn btn-primary">Export</a>
         </div>
     </div>
-
-    @await Html.PartialAsync("../Shared/DisplayTemplates/_SearchDisplay", @ViewData["currentFilter"])
     
     <div class="container">
         @await Html.PartialAsync("../Shared/DisplayTemplates/_ContactsTable", @Model.Items)

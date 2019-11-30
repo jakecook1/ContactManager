@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using ContactManagerWeb.Constants;
 using ContactManagerWeb.Data.Paging;
 using ContactManagerWeb.Enums;
 using ContactManagerWeb.Helpers;
@@ -40,11 +42,17 @@ namespace ContactManagerWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string sort, string searchString, int? pageNumber)
         {
+            // View data for sort and search values
             GetViewData(sort, searchString);
 
-            var result = await _contactsService.GetAllAsync(sort, searchString, pageNumber ?? 0);
+            // Get all contacts for specific user
+            var entities = await _contactsService.GetAllAsync(sort, searchString, pageNumber ?? 0);
 
-            var viewModels = _mapper.Map<Paginate<ContactViewModel>>(result);
+            // Check if max contacts has been created
+            ViewBag.CanCreate = entities.Count < IntConstants.MaxContacts;
+
+            // Map to view model
+            var viewModels = _mapper.Map<Paginate<ContactViewModel>>(entities);
 
             return View(viewModels);
         }
@@ -52,6 +60,13 @@ namespace ContactManagerWeb.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var entities = _contactsService.GetAll();
+
+            // If a user navigate to this route from address bar send them back to index if max contacts created
+            if (entities.Count() >= IntConstants.MaxContacts)
+                return RedirectToAction(nameof(Index), "Contacts");
+
+            // Return create contact view
             return View(new ContactViewModel() { Active = true });
         }
 
@@ -123,6 +138,17 @@ namespace ContactManagerWeb.Controllers
         {
             _contactsService.Delete(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var entity = _contactsService.Get(id.Value);
+            var viewModel = _mapper.Map<ContactViewModel>(entity);
+
+            return View(viewModel);
         }
 
         public IActionResult ViewInfo(int? id)
