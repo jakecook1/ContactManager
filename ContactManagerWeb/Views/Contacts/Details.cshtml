@@ -12,40 +12,30 @@
 
 <p><a asp-action="Index">Back</a></p>
 
-<div class="row pb-3">
-    <div class="col">
+<div class="d-flex flex-wrap">
+    <div class="mr-3">
         <img src="@imageSource" alt="Profile" class="img-fluid img-thumbnail">
     </div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.FirstName)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.FirstName)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.MiddleInitial)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.MiddleInitial)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.LastName)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.LastName)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.Email)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.Email)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.HomePhone)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.HomePhone)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.CellPhone)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.CellPhone)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.OfficeExtension)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.OfficeExtension)</div>
-</div>
-<div class="row pb-3">
-    <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.IrdNumber)</div>
-    <div class="col-10">@Html.DisplayFor(model => model.IrdNumber)</div>
+    <div class="flex-fill">
+        <h5>@Html.DisplayFor(model => model.FullName)</h5>
+        <p>@Html.DisplayFor(model => model.Email)</p>
+
+        <h5 class="pt-3">Contact Information</h5>
+        <div class="row pb-3">
+            <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.HomePhone)</div>
+            <div class="col-10">@Html.DisplayFor(model => model.HomePhone)</div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.CellPhone)</div>
+            <div class="col-10">@Html.DisplayFor(model => model.CellPhone)</div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.OfficeExtension)</div>
+            <div class="col-10">@Html.DisplayFor(model => model.OfficeExtension)</div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-2 font-weight-bold">@Html.DisplayNameFor(model => model.IrdNumber)</div>
+            <div class="col-10">@Html.DisplayFor(model => model.IrdNumber)</div>
+        </div>
+    </div>
 </div>
