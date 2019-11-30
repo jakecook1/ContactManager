@@ -39,7 +39,7 @@ namespace ContactManagerWeb.ViewModels
         public string OfficeExtension { get; set; }
 
         [Display(Name = "IRD No.")]
-        [RegularExpression(@"\d{3}-? *\d{3}-? *-?\d{3}")]
+        [RegularExpression(@"\d{3}-? *\d{3}-? *-?\d{3}", ErrorMessage = "Please enter a correct IRD Number. e.g. (123-456-789)")]
         public string IrdNumber { get; set; }
 
         [Display(Name = "Active")]
