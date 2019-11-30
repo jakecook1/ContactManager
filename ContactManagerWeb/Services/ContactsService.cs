@@ -40,24 +40,15 @@ namespace ContactManagerWeb.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<Contact> GetAll(string userId = null)
+        public IEnumerable<Contact> GetAll()
         {
-            var plansRepo = _uow.GetRepository<Contact>();
-            var entities = new List<Contact>();
+            var user = _userManager.FindByNameAsync(UserName).Result;
 
-            if (!string.IsNullOrEmpty(userId))
-            {
-                entities = _uow.GetRepository<Contact>()
-                               .GetAll(predicate: FilterByUserId(userId),
-                                       orderBy: OrderBy())
-                               .ToList();
-            }
-            else
-            {
-                entities = _uow.GetRepository<Contact>()
-                               .GetAll(orderBy: OrderBy())
-                               .ToList();
-            }
+            var entities = _uow.GetRepository<Contact>()
+                           .GetAll(predicate: FilterByUserId(user.Id),
+                                   include: Includes(),
+                                   orderBy: OrderBy())
+                           .ToList();
 
             var cols = new string[] {"UpdatedAt"};
             entities.UtcToLocalDates<Contact>(cols);
@@ -70,8 +61,7 @@ namespace ContactManagerWeb.Services
             var user = await _userManager.FindByNameAsync(UserName);
 
             var entities = await _uow.GetRepositoryAsync<Contact>()
-                                     .GetListAsync(//predicate: GetFilter(search),
-                                                   predicate: FilterByUserId(user.Id),
+                                     .GetListAsync(predicate: GetFilter(search, user.Id),
                                                    include: Includes(),
                                                    orderBy: ListExtensions.GetOrderBy<Contact>(sort, "FirstName"),
                                                    index: pageNumber,
@@ -112,8 +102,8 @@ namespace ContactManagerWeb.Services
             entity.LocalToUtcDates<Contact>(cols);
 
             var contact = _uow.GetRepository<Contact>()
-                           .Single(predicate: x => x.ContactId == entity.ContactId,
-                                   disableTracking: false);
+                              .Single(predicate: x => x.ContactId == entity.ContactId,
+                                      disableTracking: false);
 
             CheckColumnUpdates(entity, contact);
 
@@ -164,12 +154,19 @@ namespace ContactManagerWeb.Services
                 contact.Active = entity.Active;
         }
 
-        private static Expression<Func<Contact, bool>> GetFilter(string search)
+        private static Expression<Func<Contact, bool>> GetFilter(string search, string userId)
         {
             Expression<Func<Contact, bool>> predicate = null;
 
             if (!string.IsNullOrEmpty(search))
-                predicate = source => (source.FirstName.ToLower() + " " + source.LastName.ToLower()).Contains(search.ToLower());
+            {
+                predicate = source => source.User.Id == userId
+                                      & (source.FirstName.ToLower() + " " + source.LastName.ToLower()).Contains(search.ToLower());
+            }
+            else
+            {
+                predicate = source => source.User.Id == userId;
+            }
 
             return predicate;
         }

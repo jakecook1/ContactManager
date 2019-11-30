@@ -6,7 +6,7 @@ namespace ContactManagerWeb.Services
 {
     public interface IService<T>
     {
-        IEnumerable<T> GetAll(string userId = null);
+        IEnumerable<T> GetAll();
 
         Task<IPaginate<T>> GetAllAsync(string sort, string search, int pageNumber);
 

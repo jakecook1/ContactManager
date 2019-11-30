@@ -2,6 +2,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using ContactManagerWeb.Data.Paging;
+using ContactManagerWeb.Enums;
+using ContactManagerWeb.Helpers;
 using ContactManagerWeb.Models;
 using ContactManagerWeb.Services;
 using ContactManagerWeb.ViewModels;
@@ -132,6 +134,15 @@ namespace ContactManagerWeb.Controllers
             var viewModel = _mapper.Map<ContactViewModel>(entity);
 
             return PartialView("~/Views/Shared/Modals/_ContactModal.cshtml", viewModel);
+        }
+
+        public IActionResult Export()
+        {
+            // Export data as a csv file
+            var entities = _contactsService.GetAll();
+
+            var streamFile = new FileBuilder(FileType.Csv).GetFile<Contact>(entities);
+            return File(streamFile.Contents, streamFile.ContentType, streamFile.Name);
         }
 
         #endregion
