@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace ContactManagerWeb.Models
 {
@@ -7,6 +8,35 @@ namespace ContactManagerWeb.Models
         public int ContactId { get; set; }
 
         public User User { get; set; }
+
+        public string FullName 
+        {
+            get
+            {
+                var fullName = new StringBuilder();
+
+                 if (!string.IsNullOrEmpty(FirstName))
+                    fullName.Append(FirstName);
+
+                if (!string.IsNullOrEmpty(MiddleInitial))
+                {
+                    if (fullName.Length > 0)
+                        fullName.Append(" ");
+                    
+                    fullName.Append(MiddleInitial);
+                }
+
+                if (!string.IsNullOrEmpty(LastName))
+                {
+                    if (fullName.Length > 0)
+                        fullName.Append(" ");
+                    
+                    fullName.Append(LastName);
+                }
+
+                return fullName.ToString();
+            }
+        }
 
         public string FirstName { get; set; }
 

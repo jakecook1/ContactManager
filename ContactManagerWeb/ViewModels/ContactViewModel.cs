@@ -9,6 +9,9 @@ namespace ContactManagerWeb.ViewModels
     {
         public int ContactId { get; set; }
 
+        [Display(Name = "Name")]
+        public string FullName { get; set; }
+
         [Required(ErrorMessage = "First name is required.")]
         [Display(Name = "First")]
         public string FirstName { get; set; }

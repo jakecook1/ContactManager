@@ -123,7 +123,7 @@ namespace ContactManagerWeb.Services
             var entities = _uow.GetRepository<Contact>()
                                .GetAll(predicate: FilterActiveByUserId(user.Id),
                                    include: Includes())
-                           .ToList();
+                               .ToList();
 
             return entities.Count();
         }

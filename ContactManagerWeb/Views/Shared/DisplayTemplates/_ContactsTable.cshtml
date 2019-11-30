@@ -3,18 +3,12 @@
 <table class="table table-sm table-hover">
     <thead class="thead-dark">
         <tr class="row">
-            <th class="col-md-2">
+            <th class="col-md-1"></th>
+            <th class="col-md-3">
                 <a asp-action="Index"
                     asp-route-sort="@ViewData["FirstNameSortParam"]"
                     class="text-white">
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </a>
-            </th>
-            <th class="col-md-2">
-                <a asp-action="Index"
-                    asp-route-sort="@ViewData["LastNameSortParam"]"
-                    class="text-white">
-                    @Html.DisplayNameFor(model => model.LastName)
+                    @Html.DisplayNameFor(model => model.FullName)
                 </a>
             </th>
             <th class="col-md-3">
@@ -43,13 +37,23 @@
     </thead>
     <tbody>
     @foreach (var item in Model) {
-        <tr class="row cursor-pointer" data-toggle="tooltip" data-placement="bottom" title="Click to view details..."
+        <tr class="row cursor-pointer"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Click to view details..."
             onclick="location.href = '@(Url.Action("Details", "Contacts", new { id = @item.ContactId }))'">
-            <td class="col-md-2 text-break">
-                @Html.DisplayFor(modelItem => item.FirstName)
+            <td class="col-md-1">
+                @if (item.ImagePublicId != null)
+                {
+                    <img src="@item.ThumbnailUrl" alt="Profile" class="img-fluid img-thumbnail" />
+                }
+                else
+                {
+                    <img src="/images/profile_placeholder.png" alt="Profile" class="img-fluid img-thumbnail" />
+                }
             </td>
-            <td class="col-md-2 text-break">
-                @Html.DisplayFor(modelItem => item.LastName)
+            <td class="col-md-3 text-break">
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td class="col-md-3 text-break">
                 @Html.DisplayFor(modelItem => item.Email)
