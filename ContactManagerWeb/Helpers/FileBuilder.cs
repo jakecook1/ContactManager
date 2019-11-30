@@ -30,7 +30,7 @@ namespace ContactManagerWeb.Helpers
                 var sw = new StreamWriter(ms);
 
                 // Add csv header
-                sw.WriteLine(@"FirstName,MiddleInitial,LastName,Email,HomePhone,CellPhone,OfficeExtension,IrdeNumber,Active");
+                sw.WriteLine(@"FirstName,MiddleInitial,LastName,Email,HomePhone,CellPhone,OfficeExtension,IrdNumber,Active");
 
                 foreach (var entity in entities)
                     AddContact(sw, entity);
