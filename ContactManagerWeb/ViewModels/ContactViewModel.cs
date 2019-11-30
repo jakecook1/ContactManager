@@ -27,18 +27,19 @@ namespace ContactManagerWeb.ViewModels
         public string Email { get; set; }
 
         [Display(Name = "Home")]
-        [Phone]
+        [Phone(ErrorMessage = "Please enter a correct number.")]
         public string HomePhone { get; set; }
 
         [Display(Name = "Mobile")]
-        [Phone]
+        [Phone(ErrorMessage = "Please enter a correct number.")]
         public string CellPhone { get; set; }
 
         [Display(Name = "Ext.")]
-        [Phone]
+        [Phone(ErrorMessage = "Please enter a correct number.")]
         public string OfficeExtension { get; set; }
 
         [Display(Name = "IRD No.")]
+        [RegularExpression(@"\d{3}-? *\d{3}-? *-?\d{3}")]
         public string IrdNumber { get; set; }
 
         [Display(Name = "Active")]
