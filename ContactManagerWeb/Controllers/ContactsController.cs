@@ -193,7 +193,7 @@ namespace ContactManagerWeb.Controllers
         {
             ViewData["CurrentSort"] = sort;
             ViewData["FirstNameSortParam"] = string.IsNullOrEmpty(sort) ? "FirstName_desc" : "";
-            ViewData["LastNameSortParam"] = sort == "LastName" ? "LastName_desc" : "LastName";
+            ViewData["EmailSortParam"] = sort == "Email" ? "Email_desc" : "Email";
             ViewData["HomePhoneSortParam"] = sort == "HomePhone" ? "HomePhone_desc" : "HomePhone";
             ViewData["CellPhoneSortParam"] = sort == "CellPhone" ? "CellPhone_desc" : "CellPhone";
             ViewData["OfficeExtensionSortParam"] = sort == "OfficeExtension" ? "OfficeExtension_desc" : "OfficeExtension";
