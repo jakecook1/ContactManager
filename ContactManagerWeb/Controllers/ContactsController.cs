@@ -63,7 +63,7 @@ namespace ContactManagerWeb.Controllers
         {
             var entities = _contactsService.GetAll();
 
-            // If a user navigate to this route from address bar send them back to index if max contacts created
+            // If a user navigates to this route from address bar send them back to index if max contacts created
             if (entities.Count() >= IntConstants.MaxContacts)
                 return RedirectToAction(nameof(Index), "Contacts");
 

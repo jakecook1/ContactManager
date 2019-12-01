@@ -16,26 +16,25 @@
     <div class="mb-3 mr-3">
         <img src="@imageSource" alt="Profile" class="img-fluid img-thumbnail">
     </div>
-    <div class="flex-fill">
-        <h5>@Html.DisplayFor(model => model.FullName)</h5>
+    <div class="flex-fill border rounded p-3">
+        <h5 class="text-dark">@Html.DisplayFor(model => model.FullName)</h5>
         <p>@Html.DisplayFor(model => model.Email)</p>
 
-        <h5 class="pt-3">Contact Information</h5>
-        <div class="row pb-3">
-            <div class="col-3 font-weight-bold">@Html.DisplayNameFor(model => model.HomePhone)</div>
-            <div class="col-9">@Html.DisplayFor(model => model.HomePhone)</div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-3 font-weight-bold">@Html.DisplayNameFor(model => model.CellPhone)</div>
-            <div class="col-9">@Html.DisplayFor(model => model.CellPhone)</div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-3 font-weight-bold">@Html.DisplayNameFor(model => model.OfficeExtension)</div>
-            <div class="col-9">@Html.DisplayFor(model => model.OfficeExtension)</div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-3 font-weight-bold">@Html.DisplayNameFor(model => model.IrdNumber)</div>
-            <div class="col-9">@Html.DisplayFor(model => model.IrdNumber)</div>
-        </div>
+        <h5 class="text-dark pt-3">Contact Information</h5>
+
+        <h6 class="text-secondary">@Html.DisplayNameFor(model => model.HomePhone)</h6>
+        <p>@Html.DisplayFor(model => model.HomePhone)</p>
+
+        <h6 class="text-secondary">@Html.DisplayNameFor(model => model.CellPhone)</h6>
+        <p>@Html.DisplayFor(model => model.CellPhone)</p>
+
+        <h6 class="text-secondary">@Html.DisplayNameFor(model => model.OfficeExtension)</h6>
+        <p>@Html.DisplayFor(model => model.OfficeExtension)</p>
+
+        <h6 class="text-secondary">@Html.DisplayNameFor(model => model.IrdNumber)</h6>
+        <p>@Html.DisplayFor(model => model.IrdNumber)</p>
+
+        <h6 class="text-secondary">@Html.DisplayNameFor(model => model.Active)</h6>
+        <p>@(Model.Active ? "Yes" : "No")</p>
     </div>
 </div>

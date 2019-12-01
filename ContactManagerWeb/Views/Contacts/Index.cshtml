@@ -11,8 +11,12 @@
             <h1 class="display-4">@ViewData["Title"]</h1>
         </div>
         <div>
-            <a asp-action="Create" class="@(canCreate == true ? "btn btn-primary mr-1" : "btn btn-primary mr-1 disabled")"><i class="fas fa-user-edit"></i> Create</a>
-            <a asp-action="Export" class="btn btn-primary mr-1"><i class="fas fa-download"></i> Export</a>
+            <span data-toggle="tooltip" data-placement="bottom" title="@(canCreate == true ? "Create new contact" : "Max contacts created")">
+                <a asp-action="Create" class="@(canCreate == true ? "btn btn-primary mr-1" : "btn btn-primary mr-1 disabled")">
+                    <i class="fas fa-user-edit"></i> Create
+                </a>
+            </span>
+            <a asp-action="Export" class="btn btn-primary mr-1" data-toggle="tooltip" data-placement="bottom" title="Export to CSV"><i class="fas fa-download"></i> Export</a>
             <a asp-action="Print" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Print"><i class="fas fa-print"></i></a>
         </div>
     </div>
