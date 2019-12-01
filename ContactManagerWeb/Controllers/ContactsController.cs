@@ -208,7 +208,7 @@ namespace ContactManagerWeb.Controllers
             var deletedImage = viewModel.DeletedImage;
 
             if (deletedImage)
-                entity.ImagePublicId  = null;
+                entity.ImagePublicId = null;
 
             var uploadDetails = viewModel.UploadDetails;
 
