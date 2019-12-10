@@ -5,6 +5,8 @@
 
 <hr />
 
+<p><a asp-action="Index">Back</a><p>
+
 @using (Html.BeginForm("Edit", "Contacts", FormMethod.Post))
 {
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -13,8 +15,7 @@
     </div>
 
     <input type="submit" value="Save" class="btn btn-primary" />
-    <span> | </span>
-    <a asp-action="Index">Back</a>
+    <a asp-action="Index" class="btn btn-default">Cancel</a>
 }
 
 @section Scripts {
